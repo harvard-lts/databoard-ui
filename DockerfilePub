@@ -23,7 +23,7 @@ WORKDIR /home/appuser
 # Update permissions for the mpsadm user and group
 COPY change_id.sh /root/change_id.sh
 RUN chmod 755 /root/change_id.sh && \
-  /root/change_id.sh -u 55001 -g 55001
+  /root/change_id.sh -u 55005 -g 199
 
 # Supervisor to run and manage multiple apps in the same container
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
