@@ -5,8 +5,8 @@ version: '3.8'
 
 services:
 
-  drs-data-dashboard:
-    container_name: 'drs-data-dashboard'
+  dashboard-ui:
+    container_name: 'dashboard-ui'
     build:
       context: './'
       dockerfile: 'DockerfileLocal'
@@ -18,10 +18,10 @@ services:
       - '3001:8081'
     # Join this service to a custom docker network
     networks:
-      - drs-data-dashboard-net
+      - dashboard-net
 
 
   # Create a custom docker network if it does not exist already
 networks:
-  drs-data-dashboard-net:
-    name: drs-data-dashboard-net
+  dashboard-net:
+    name: dashboard-net

@@ -1,4 +1,4 @@
-# drs-data-dashboard
+# dashboard-ui
 A tool to report and visualize vital, high-level data points about the Harvard Library Digital Repository Service (DRS)
 
 ## Technology Stack
@@ -14,7 +14,7 @@ Docker Compose
 ## Local Development Environment Setup Instructions
 
 ### 1: Clone the repository to a local directory
-```git clone git@github.com:harvard-lts/drs-data-dashboard.git```
+```git clone git@github.com:harvard-lts/dashboard-ui.git```
 
 ### 2: Copy the cloned files into your own new project repository
 
@@ -47,7 +47,7 @@ This step is only required if additional python packages must be installed durin
 Open a shell using the exec command to access the hgl-downloader container.
 
 ```
-docker exec -it drs-data-dashboard bash
+docker exec -it dashboard-ui bash
 ```
 
 ##### Install a new pip package
