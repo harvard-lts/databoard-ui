@@ -17,4 +17,7 @@ def define_resources(app):
             return {"version": version}
     @app.route('/hello-world')
     def hello_world():
-        return render_template('index.html')
+        return render_template('hello-world.html')
+    @app.route('/databoard')
+    def databoard():
+        return render_template('databoard.html')
