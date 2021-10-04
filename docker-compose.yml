@@ -7,8 +7,8 @@ version: '3.8'
 
 services:
 
-  dashboard-ui:
-    image: registry.lts.harvard.edu/lts/dashboard-ui:0.0.1
+  databoard-ui:
+    image: registry.lts.harvard.edu/lts/databoard-ui:0.0.1
     build:
       context: .
       dockerfile: DockerfilePub
