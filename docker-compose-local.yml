@@ -5,8 +5,8 @@ version: '3.8'
 
 services:
 
-  dashboard-ui:
-    container_name: 'dashboard-ui'
+  databoard-ui:
+    container_name: 'databoard-ui'
     build:
       context: './'
       dockerfile: 'DockerfileLocal'
@@ -18,10 +18,10 @@ services:
       - '3001:8081'
     # Join this service to a custom docker network
     networks:
-      - dashboard-net
+      - databoard-net
 
 
   # Create a custom docker network if it does not exist already
 networks:
-  dashboard-net:
-    name: dashboard-net
+  databoard-net:
+    name: databoard-net
