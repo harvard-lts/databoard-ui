@@ -2,7 +2,7 @@
 
 {% block chart_js %}
 <script>
-  let drs_data = {{ drs_data|tojson }};
+  let files_per_owner_data = {{ files_per_owner_data|tojson }};
 </script>
 <script src="{{ url_for('static', filename='js/databoard.js') }}"></script>
 {% endblock %}
@@ -13,6 +13,8 @@
   <div class="container">
     <h1>Databoard Sandbox</h1>
     <p class="lead">A tool to report and visualize vital, high-level data points about the Harvard Library Digital Repository Service (DRS)</p>
+    <p class="hl__time-stamp">Last update: <span class="hl__date">xx/xx/xxxx</span></p>
+    <p>Statistics are updated daily. </p>
     <p>
       <a href="#pie1" class="btn btn-primary my-2">Explore dashboard</a>
       <a href="/hello-world" class="btn btn-secondary my-2">View styleguide</a>
@@ -21,38 +23,16 @@
 </section>
 
 <div class="container-fluid">
-  <div class="row row-cols-1 row-cols-md-3">
-
-    <div class="col mb-4">
-      <div class="card">
-        <canvas id="filesPerOwner" class="card-img-top"></canvas>
-        <div class="card-body">
-          <h5 class="card-title">Files per owner</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
+  <div class="row py-2">
+      <div class="col">
+          <div class="card-body">
+              <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="bytes-chart" role="tabpanel" aria-labelledby="bytes-chart-tab">
+                  <canvas id="filesPerOwnerChart"></canvas>
+                </div>
+              </div>
+          </div>
       </div>
-    </div>
-    
-    <div class="col mb-4">
-      <div class="card">
-        <canvas id="pie1" class="card-img-top"></canvas>
-        <div class="card-body">
-          <h5 class="card-title">Test chart 1</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-   
-    <div class="col mb-4">
-      <div class="card">
-        <canvas id="pie2" class="card-img-top"></canvas>
-        <div class="card-body">
-          <h5 class="card-title">Test chart 2</h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        </div>
-      </div>
-    </div>
-
   </div>
 </div>
 

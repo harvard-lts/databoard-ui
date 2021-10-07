@@ -2,7 +2,7 @@ from flask_restx import Resource, Api
 from flask import request, current_app, make_response, jsonify, render_template
 import os, json
 
-# Import custom class files here
+# Import data files
 from . import data_files
 
 def define_resources(app):
@@ -21,5 +21,5 @@ def define_resources(app):
     @app.route('/databoard')
     def databoard():
         data_service = data_files.DataFiles()
-        drs_data = data_service.get_data()
-        return render_template('databoard.html', drs_data = drs_data)
+        files_per_owner_data = data_service.get_files_per_owner()
+        return render_template('databoard.html', files_per_owner_data = files_per_owner_data)

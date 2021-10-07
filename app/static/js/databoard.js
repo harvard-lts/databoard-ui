@@ -40,8 +40,38 @@ $(document).ready(function () {
     "Unrecoverable*",
   ];
 
-  let data = JSON.parse(drs_data);
+  let data = JSON.parse(files_per_owner_data);
   console.log(data);
+
+  var ctx = document.getElementById('filesPerOwnerChart');
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: ['DIV.LIBR', 'FHCL.JUD', 'HUL.TEST'],
+          datasets: [{
+              label: '# of Files',
+              data: [1151, 900, 5928],
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
 
   let filesPerOwnerOptions = {
     responsive: true,
@@ -79,91 +109,6 @@ $(document).ready(function () {
       type: "bar",
       data: filesPerOwnerData,
       options: filesPerOwnerOptions,
-    });
-  }
-
-
-  let pieOptions1 = {
-    cutoutPercentage: 85,
-    legend: {
-      position: "bottom",
-      padding: 5,
-      labels: { pointStyle: "circle", usePointStyle: true },
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: "Progress by bytes",
-        padding: { top: 10, bottom: 30 },
-      },
-    },
-  };
-  let pieData1 = {
-    labels: [
-      "Pending",
-      "In Process",
-      "Failure",
-      "Unrecoverable",
-      "Sensitive",
-      "On Hold",
-      "Success",
-    ],
-    datasets: [
-      {
-        backgroundColor: colors.slice(0, 7),
-        borderWidth: 0,
-        data: [2000, 700, 200, 350, 700, 500, 4000],
-      },
-    ],
-  };
-  let pie1 = document.getElementById("pie1");
-  if (pie1) {
-    new Chart(pie1, {
-      type: "pie",
-      data: pieData1,
-      options: pieOptions1,
-    });
-  }
-
-  let pieOptions2 = {
-    cutoutPercentage: 85,
-    legend: {
-      position: "bottom",
-      padding: 5,
-      labels: { pointStyle: "circle", usePointStyle: true },
-    },
-    plugins: {
-      title: {
-        display: true,
-        text: "Progress by objects",
-        padding: { top: 10, bottom: 30 },
-      },
-    },
-  };
-  let pieData2 = {
-    labels: [
-      "Pending",
-      "In Process",
-      "Failure",
-      "Unrecoverable",
-      "Sensitive",
-      "On Hold",
-      "Success",
-    ],
-    datasets: [
-      {
-        backgroundColor: colors.slice(0, 7),
-        borderWidth: 0,
-        data: [10, 25, 50, 40, 45, 30, 10],
-      },
-    ],
-  };
-  let pie2 = document.getElementById("pie2");
-  if (pie2) {
-    new Chart(pie2, {
-      type: "pie",
-      data: pieData2,
-      options: pieOptions2,
     });
   }
 });
