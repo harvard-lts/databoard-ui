@@ -33,13 +33,31 @@ $(document).ready(function () {
   let i = data.length - 1; // last updated row
 
 
-  let owners = [];
-  let totalFiles = [];
-  let totalSize = [];
+  let largeOwners = [];
+  let largeTotalFiles = [];
+  let largeTotalSize = [];
+  let mediumOwners = [];
+  let mediumTotalFiles = [];
+  let mediumTotalSize = [];
+  let smallOwners = [];
+  let smallTotalFiles = [];
+  let smallTotalSize = [];
   for (i = 0; i < data.length; i++) {
-    owners.push(data[i]["CODE"]);
-    totalFiles.push(data[i]["Total files"]);
-    totalSize.push(data[i]["Total size"]);
+    if (parseInt(data[i]["Total files"]) >= 1000000) {
+      largeOwners.push(data[i]["Organization"]);
+      largeTotalFiles.push(data[i]["Total files"]);
+      largeTotalSize.push(data[i]["Total size"]);
+    }
+    if (parseInt(data[i]["Total files"]) >= 100000 && parseInt(data[i]["Total files"]) <= 999999) {
+      mediumOwners.push(data[i]["Organization"]);
+      mediumTotalFiles.push(data[i]["Total files"]);
+      mediumTotalSize.push(data[i]["Total size"]);
+    }
+    if (parseInt(data[i]["Total files"]) <= 100000) {
+      smallOwners.push(data[i]["Organization"]);
+      smallTotalFiles.push(data[i]["Total files"]);
+      smallTotalSize.push(data[i]["Total size"]);
+    }    
   }
 
   // Register the plugin to all charts:
@@ -50,24 +68,24 @@ $(document).ready(function () {
   });
 
 
-  // Number of files per owner (bar chart)
-  let filesPerOwnerOptions = {
+  // Large number of files per owner (bar chart)
+  let largeFilesPerOwnerOptions = {
     responsive: true,
     indexAxis: 'x',
     plugins: {
       title: {
         display: true,
-        text: "Number of files per owner",
+        text: "Number of files per owner (1,000,000+ files)",
         padding: { top: 10, bottom: 30 },
       }
     },
   };
-  let filesPerOwnerData = {
-    labels: owners,
+  let largeFilesPerOwnerData = {
+    labels: largeOwners,
     datasets: [
       {
         label: 'Total files',
-        data: totalFiles,
+        data: largeTotalFiles,
         backgroundColor: colors[0],
         datalabels: {
           align: 'end',
@@ -76,77 +94,172 @@ $(document).ready(function () {
       }
     ],
   };
-  let filesPerOwner = $("#filesPerOwner");
-  if (filesPerOwner) {
-    new Chart(filesPerOwner, {
+  let largeFilesPerOwner = $("#largeFilesPerOwner");
+  if (largeFilesPerOwner) {
+    new Chart(largeFilesPerOwner, {
       type: "bar",
-      data: filesPerOwnerData,
-      options: filesPerOwnerOptions,
+      data: largeFilesPerOwnerData,
+      options: largeFilesPerOwnerOptions,
     });
   }
 
-  let sizePerOwnerOptions = {
+  // Medium number of files per owner (bar chart)
+  let mediumFilesPerOwnerOptions = {
+    responsive: true,
+    indexAxis: 'x',
+    plugins: {
+      title: {
+        display: true,
+        text: "Number of files per owner (100,000 - 999,000 files)",
+        padding: { top: 10, bottom: 30 },
+      }
+    },
+  };
+  let mediumFilesPerOwnerData = {
+    labels: mediumOwners,
+    datasets: [
+      {
+        label: 'Total files',
+        data: mediumTotalFiles,
+        backgroundColor: colors[0],
+        datalabels: {
+          align: 'end',
+          anchor: 'end'
+        }
+      }
+    ],
+  };
+  let mediumFilesPerOwner = $("#mediumFilesPerOwner");
+  if (mediumFilesPerOwner) {
+    new Chart(mediumFilesPerOwner, {
+      type: "bar",
+      data: mediumFilesPerOwnerData,
+      options: mediumFilesPerOwnerOptions,
+    });
+  }
+
+  // Small number of files per owner (bar chart)
+  let smallFilesPerOwnerOptions = {
+    responsive: true,
+    indexAxis: 'x',
+    plugins: {
+      title: {
+        display: true,
+        text: "Number of files per owner (less than 100,000 files)",
+        padding: { top: 10, bottom: 30 },
+      }
+    },
+  };
+  let smallFilesPerOwnerData = {
+    labels: smallOwners,
+    datasets: [
+      {
+        label: 'Total files',
+        data: smallTotalFiles,
+        backgroundColor: colors[0],
+        datalabels: {
+          align: 'end',
+          anchor: 'end'
+        }
+      }
+    ],
+  };
+  let smallFilesPerOwner = $("#smallFilesPerOwner");
+  if (smallFilesPerOwner) {
+    new Chart(smallFilesPerOwner, {
+      type: "bar",
+      data: smallFilesPerOwnerData,
+      options: smallFilesPerOwnerOptions,
+    });
+  }
+
+  let largeSizePerOwnerOptions = {
     responsive: true,
     indexAxis: 'y',
     plugins: {
       title: {
         display: true,
-        text: "Size of files per owner",
+        text: "Size of files per owner (1,000,000+ files)",
         padding: { top: 10, bottom: 30 },
       },
     },
   };
-  let sizePerOwnerData = {
-    labels: owners,
+  let largeSizePerOwnerData = {
+    labels: largeOwners,
     datasets: [
       {
         label: 'Total size',
-        data: totalSize,
+        data: largeTotalSize,
         backgroundColor: colors[1],
       },
     ],
   };
-  let sizePerOwner = $("#sizePerOwner");
-  if (sizePerOwner) {
-    new Chart(sizePerOwner, {
+  let largeSizePerOwner = $("#largeSizePerOwner");
+  if (largeSizePerOwner) {
+    new Chart(largeSizePerOwner, {
       type: "bar",
-      data: sizePerOwnerData,
-      options: sizePerOwnerOptions,
+      data: largeSizePerOwnerData,
+      options: largeSizePerOwnerOptions,
     });
   }
 
-
-  let perOwnerOptions = {
+  let mediumSizePerOwnerOptions = {
     responsive: true,
     indexAxis: 'y',
     plugins: {
       title: {
         display: true,
-        text: "Statistics per owner",
+        text: "Size of files per owner (100,000 - 999,000 files)",
         padding: { top: 10, bottom: 30 },
       },
     },
   };
-  let perOwnerData = {
-    labels: owners,
+  let mediumSizePerOwnerData = {
+    labels: mediumOwners,
     datasets: [
       {
-        label: 'Total files',
-        data: totalFiles,
-        backgroundColor: colors[2],
-      },{
         label: 'Total size',
-        data: totalSize,
-        backgroundColor: colors[5],
-      }
+        data: mediumTotalSize,
+        backgroundColor: colors[1],
+      },
     ],
   };
-  let perOwner = $("#combinedPerOwner");
-  if (perOwner) {
-    new Chart(perOwner, {
+  let mediumSizePerOwner = $("#mediumSizePerOwner");
+  if (mediumSizePerOwner) {
+    new Chart(mediumSizePerOwner, {
       type: "bar",
-      data: perOwnerData,
-      options: perOwnerOptions,
+      data: mediumSizePerOwnerData,
+      options: mediumSizePerOwnerOptions,
+    });
+  }  
+
+  let smallSizePerOwnerOptions = {
+    responsive: true,
+    indexAxis: 'y',
+    plugins: {
+      title: {
+        display: true,
+        text: "Size of files per owner (less than 100,000 files)",
+        padding: { top: 10, bottom: 30 },
+      },
+    },
+  };
+  let smallSizePerOwnerData = {
+    labels: smallOwners,
+    datasets: [
+      {
+        label: 'Total size',
+        data: smallTotalSize,
+        backgroundColor: colors[1],
+      },
+    ],
+  };
+  let smallSizePerOwner = $("#smallSizePerOwner");
+  if (smallSizePerOwner) {
+    new Chart(smallSizePerOwner, {
+      type: "bar",
+      data: smallSizePerOwnerData,
+      options: smallSizePerOwnerOptions,
     });
   }
 });
