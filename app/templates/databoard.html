@@ -1,7 +1,40 @@
 {% extends 'index.html' %}
 
+{% block chart_js %}
+<script>
+  let files_per_owner_data = {{ files_per_owner_data|tojson }};
+</script>
+<script src="{{ url_for('static', filename='js/databoard.js') }}"></script>
+{% endblock %}
+
 {% block content %}
 
-<h1>Databoard Sandbox</h1>
+<section class="jumbotron text-center bg-white">
+  <div class="container">
+    <h1>Databoard Sandbox</h1>
+    <p class="lead hl__time-stamp">Last update: <span class="hl__date">xx/xx/xxxx</span></p>
+    <p>
+    <p class="lead">A tool to report and visualize vital, high-level data points about the Harvard Library Digital Repository Service (DRS). Statistics are updated daily.</p>
+      <a href="#filesPerOwner" class="btn btn-primary my-2">Explore dashboard</a>
+      <a href="/styleguide" class="btn btn-secondary my-2">View styleguide</a>
+    </p>
+  </div>
+</section>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <canvas id="filesPerOwner"></canvas>
+    </div>
+    <div class="col">
+      <canvas id="sizePerOwner"></canvas>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <canvas id="combinedPerOwner"></canvas>
+    </div>
+  </div>
+</div>
 
 {% endblock %}
