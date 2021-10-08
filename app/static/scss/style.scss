@@ -90,7 +90,7 @@ h1, h2, h3, h4, h5, h6 {
       display: block;
       font-size: 0;
     }
-    
+
     .hl__image {
       height: auto;
       max-width: 100%;
@@ -99,15 +99,12 @@ h1, h2, h3, h4, h5, h6 {
 
   @media (min-width: 621px) {
     display: flex;
-  
+
     a {
       border: none;
     }
   }
 }
-
-
-
 
 /* FOOTER */
 .hl__footer {
@@ -137,4 +134,20 @@ h1, h2, h3, h4, h5, h6 {
       text-align: left;
     }
   }
+}
+
+/* time stamp */
+.hl__time-stamp {
+	// font-family: "Trueno", sans-serif;
+	font-weight: 700;
+	// font-size: 20px;
+	// line-height: 30px;
+	// margin-bottom: 20px;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	color: #1e1e1e;
+}
+
+.row {
+  margin-bottom: 50px;
 }

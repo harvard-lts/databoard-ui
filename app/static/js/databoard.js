@@ -26,89 +26,127 @@ $(document).ready(function () {
   let chartColors = ["#414141", "#f8c21c", "#a51c30", "#8DBA4B"];
   let lineColor = "#a51c30";
 
-  // labels
-  let chartLabels = ["Pending", "Migrated", "Failed migration", "Verified"];
-  let tableLabels = [
-    "Pending",
-    "In process",
-    "On hold",
-    "Sensitive",
-    "Needs verification",
-    "Failure",
-    "Verify failed",
-    "Verified",
-    "Unrecoverable*",
-  ];
-
+  // pull in data
   let data = JSON.parse(files_per_owner_data);
   console.log(data);
 
-  var ctx = document.getElementById('filesPerOwnerChart');
-  var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-          labels: ['DIV.LIBR', 'FHCL.JUD', 'HUL.TEST'],
-          datasets: [{
-              label: '# of Files',
-              data: [1151, 900, 5928],
-              backgroundColor: [
-                  'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)',
-                  'rgba(255, 206, 86, 0.2)'
-              ],
-              borderColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)'
-              ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: true
-              }
-          }
-      }
+  let i = data.length - 1; // last updated row
+
+
+  let owners = [];
+  let totalFiles = [];
+  let totalSize = [];
+  for (i = 0; i < data.length; i++) {
+    owners.push(data[i]["CODE"]);
+    totalFiles.push(data[i]["Total files"]);
+    totalSize.push(data[i]["Total size"]);
+  }
+
+  // Register the plugin to all charts:
+  Chart.register(ChartDataLabels);
+  Chart.defaults.set('plugins.datalabels', {
+    align: 'end',
+    anchor: 'end'
   });
 
+
+  // Number of files per owner (bar chart)
   let filesPerOwnerOptions = {
     responsive: true,
+    indexAxis: 'x',
     plugins: {
       title: {
         display: true,
-        text: "Files per owner",
+        text: "Number of files per owner",
         padding: { top: 10, bottom: 30 },
-      },
+      }
     },
   };
-
   let filesPerOwnerData = {
-    labels: [
-      'DIV.LIBR',
-      'FHCL.JUD',
-      'HUL.TEST'
-    ],
+    labels: owners,
     datasets: [
       {
         label: 'Total files',
-        data: [1151,9,55928],
+        data: totalFiles,
         backgroundColor: colors[0],
-      },
-      {
-        label: 'Total size',
-        data: [86988928,53299115,63552833503],
-        backgroundColor: colors[1],
-      },
+        datalabels: {
+          align: 'end',
+          anchor: 'end'
+        }
+      }
     ],
   };
-  let filesPerOwner = document.getElementById("filesPerOwner");
+  let filesPerOwner = $("#filesPerOwner");
   if (filesPerOwner) {
     new Chart(filesPerOwner, {
       type: "bar",
       data: filesPerOwnerData,
       options: filesPerOwnerOptions,
+    });
+  }
+
+  let sizePerOwnerOptions = {
+    responsive: true,
+    indexAxis: 'y',
+    plugins: {
+      title: {
+        display: true,
+        text: "Size of files per owner",
+        padding: { top: 10, bottom: 30 },
+      },
+    },
+  };
+  let sizePerOwnerData = {
+    labels: owners,
+    datasets: [
+      {
+        label: 'Total size',
+        data: totalSize,
+        backgroundColor: colors[1],
+      },
+    ],
+  };
+  let sizePerOwner = $("#sizePerOwner");
+  if (sizePerOwner) {
+    new Chart(sizePerOwner, {
+      type: "bar",
+      data: sizePerOwnerData,
+      options: sizePerOwnerOptions,
+    });
+  }
+
+
+  let perOwnerOptions = {
+    responsive: true,
+    indexAxis: 'y',
+    plugins: {
+      title: {
+        display: true,
+        text: "Statistics per owner",
+        padding: { top: 10, bottom: 30 },
+      },
+    },
+  };
+  let perOwnerData = {
+    labels: owners,
+    datasets: [
+      {
+        label: 'Total files',
+        data: totalFiles,
+        backgroundColor: colors[2],
+      },{
+        label: 'Total size',
+        data: totalSize,
+        backgroundColor: colors[5],
+      }
+    ],
+  };
+  let perOwner = $("#combinedPerOwner");
+  if (perOwner) {
+    new Chart(perOwner, {
+      type: "bar",
+      data: perOwnerData,
+      options: perOwnerOptions,
     });
   }
 });
