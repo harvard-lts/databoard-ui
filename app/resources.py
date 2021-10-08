@@ -15,9 +15,9 @@ def define_resources(app):
         def get(self):
             version = os.environ.get('APP_VERSION', "NOT FOUND")
             return {"version": version}
-    @app.route('/hello-world')
-    def hello_world():
-        return render_template('hello-world.html')
+    @app.route('/styleguide')
+    def styleguide():
+        return render_template('styleguide.html')
     @app.route('/databoard')
     def databoard():
         data_service = data_files.DataFiles()
